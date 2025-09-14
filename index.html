@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trevel — Adventures</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .typing-cursor {
+        display: inline-block;
+        width: 2px;
+        background: #ffeb3b;
+        margin-left: 4px;
+        animation: blink 0.7s infinite;
+      }
+      @keyframes blink {
+        0%, 50%, 100% { opacity: 1; }
+        25%, 75% { opacity: 0; }
+      }
+      /* Glass effect for navbar */
+      .glass {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.08);
+      }
+    </style>
+    <script type="module" crossorigin src="/hackthon-project/assets/index-BM0Yr8yy.js"></script>
+    <link rel="stylesheet" crossorigin href="/hackthon-project/assets/index-Cm00Wuoc.css">
+  </head>
+  <body class="bg-gradient-to-br from-gray-50 to-gray-200 text-gray-900 font-[Inter]">
+    <!-- Navbar -->
+    <!-- <nav
+      id="navbar"
+      class="fixed top-0 left-0 w-full z-50 glass shadow-lg transition-all duration-300"
+    >
+      <div class="container mx-auto flex justify-between items-center p-4">
+        <h1 class="font-extrabold text-2xl text-white tracking-wide drop-shadow-md">
+          🌍 Trevel Project
+        </h1>
+        <ul id="nav-links" class="hidden md:flex space-x-6 text-white font-medium">
+          <li><a href="#home" class="hover:text-yellow-300 transition">Home</a></li>
+          <li><a href="#packages" class="hover:text-yellow-300 transition">Packages</a></li>
+          <li><a href="#agents" class="hover:text-yellow-300 transition">Agents</a></li>
+          <li><a href="#contact" class="hover:text-yellow-300 transition">Contact</a></li>
+        </ul>
+        <button
+          id="menu-btn"
+          class="md:hidden text-white text-3xl focus:outline-none"
+        >
+          ☰
+        </button>
+      </div>
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-gradient-to-b from-blue-700 to-purple-700 text-white px-4 py-4 space-y-2 shadow-lg"
+      >
+        <a href="#home" class="block hover:text-yellow-300 transition">Home</a>
+        <a href="#packages" class="block hover:text-yellow-300 transition">Packages</a>
+        <a href="#agents" class="block hover:text-yellow-300 transition">Agents</a>
+        <a href="#contact" class="block hover:text-yellow-300 transition">Contact</a>
+      </div>
+    </nav>
+
+    Hero Section
+    <header
+      id="home"
+      class="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white pt-24"
+    >
+      <div
+        class="container mx-auto flex flex-col items-center justify-center text-center py-24 px-4"
+      >
+        <h1
+          id="hero-title"
+          class="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg leading-tight"
+        >
+          Welcome to — <span id="typing-text" class="text-yellow-300"></span>
+          <span class="typing-cursor"></span>
+        </h1>
+        <p
+          id="hero-subtitle"
+          class="text-lg md:text-xl max-w-2xl mb-8 opacity-0 translate-y-4 transition-all duration-1000 delay-300"
+        >
+          Explore breathtaking destinations, discover curated packages, and connect with
+          trusted travel experts to plan your next journey.
+        </p>
+        <a
+          href="#packages"
+          id="explore-btn"
+          class="px-8 py-3 bg-yellow-400 text-black font-semibold rounded-full shadow-xl hover:bg-yellow-300 transition transform hover:scale-90 hover:rotate-5"
+        >
+          🚀 Explore Packages
+        </a>
+      </div>
+
+      <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] rotate-180">
+        <svg
+          class="relative block w-full h-20"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          viewBox="0 0 1200 120"
+        >
+          <path
+            d="M985.66,83.29C906.67,116.19,823,130.91,739.05,122.77,655.1,114.63,571.38,83.63,487.43,70.06,403.48,56.5,319.76,60.1,235.81,78.74,151.86,97.37,68.14,131,0,161.09V0H1200V27.35C1131.86,57.44,1064.64,50.39,985.66,83.29Z"
+            fill="#f9fafb"
+          ></path>
+        </svg>
+      </div>
+    </header> -->
+
+    <!-- Root React App Mount Point -->
+    <div id="root"></div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-6 mt-10">
+      <div class="container mx-auto text-center">
+        <p class="text-sm">
+          &copy; 2025 <span class="font-semibold text-white">Trevel Project</span>. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+
+    <!-- Custom Interactivity JS -->
+    <script>
+      // Mobile menu toggle
+      document.getElementById("menu-btn").addEventListener("click", () => {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+      });
+
+      // Hero subtitle fade-in on load
+      window.addEventListener("load", () => {
+        document.getElementById("hero-subtitle").classList.remove("opacity-0", "translate-y-4");
+      });
+
+      // Navbar shrink + background transition
+      window.addEventListener("scroll", () => {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("bg-gradient-to-r", "from-blue-600", "to-purple-600", "shadow-xl");
+        } else {
+          navbar.classList.remove("bg-gradient-to-r", "from-blue-600", "to-purple-600", "shadow-xl");
+        }
+      });
+
+      // Smooth scroll for links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth"
+          });
+          document.getElementById("mobile-menu").classList.add("hidden");
+        });
+      });
+
+      // Typing effect
+      const phrases = [
+        "Explore the World",
+        "Dream · Discover · Travel",
+        "Wander Beyond",
+        "Your Next Adventure",
+        "Travel Made Simple"
+      ];
+
+      const typingElement = document.getElementById("typing-text");
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let deleting = false;
+
+      function typeEffect() {
+        const currentPhrase = phrases[phraseIndex];
+        if (!deleting) {
+          typingElement.textContent = currentPhrase.substring(0, charIndex + 1);
+          charIndex++;
+          if (charIndex === currentPhrase.length) {
+            deleting = true;
+            setTimeout(typeEffect, 1500);
+            return;
+          }
+        } else {
+          typingElement.textContent = currentPhrase.substring(0, charIndex - 1);
+          charIndex--;
+          if (charIndex === 0) {
+            deleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+          }
+        }
+        setTimeout(typeEffect, deleting ? 60 : 120);
+      }
+      typeEffect();
+
+      // Animate explore button every few seconds
+      setInterval(() => {
+        const btn = document.getElementById("explore-btn");
+        btn.classList.add("animate-bounce");
+      });
+    </script>
+  </body>
+</html>
