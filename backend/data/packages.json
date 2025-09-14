@@ -1,0 +1,122 @@
+[
+  {
+    "id": "pkg1",
+    "title": "Budget Beach Escape",
+    "description": "3 nights at a beachfront hotel.",
+    "price": 199,
+    "nights": 3,
+    "location": "Goa"
+  },
+  {
+    "id": "pkg2",
+    "title": "City Explorer",
+    "description": "4 days of city sightseeing and food tours.",
+    "price": 299,
+    "nights": 4,
+    "location": "Delhi"
+  },
+  {
+    "id": "pkg3",
+    "title": "Mountain Retreat",
+    "description": "Cozy cabin in the hills, perfect for relaxation.",
+    "price": 399,
+    "nights": 5,
+    "location": "Manali"
+  },
+  {
+    "id": "pkg4",
+    "title": "Kerala Backwaters Cruise",
+    "description": "Enjoy serene houseboat rides through Kerala’s backwaters.",
+    "price": 499,
+    "nights": 4,
+    "location": "Kerala"
+  },
+  {
+    "id": "pkg5",
+    "title": "Rajasthan Royal Tour",
+    "description": "Experience forts, palaces, and desert safaris in Rajasthan.",
+    "price": 599,
+    "nights": 6,
+    "location": "Jaipur"
+  },
+  {
+    "id": "pkg6",
+    "title": "Bali Adventure Explorer",
+    "description": "Discover Bali’s temples, beaches, and local culture.",
+    "price": 899,
+    "nights": 6,
+    "location": "Bali"
+  },
+  {
+    "id": "pkg7",
+    "title": "Maldives Luxury Escape",
+    "description": "Stay in overwater villas with all-inclusive luxury.",
+    "price": 1299,
+    "nights": 5,
+    "location": "Maldives"
+  },
+  {
+    "id": "pkg8",
+    "title": "Swiss Alps Experience",
+    "description": "Explore snowy mountains, lakes, and Swiss villages.",
+    "price": 1999,
+    "nights": 7,
+    "location": "Switzerland"
+  },
+  {
+    "id": "pkg9",
+    "title": "Paris City Lights",
+    "description": "Visit Eiffel Tower, Louvre Museum, and Seine River cruise.",
+    "price": 1599,
+    "nights": 5,
+    "location": "Paris"
+  },
+  {
+    "id": "pkg10",
+    "title": "Dubai Desert Safari",
+    "description": "Luxury shopping, desert dune bashing, and Burj Khalifa visit.",
+    "price": 1099,
+    "nights": 4,
+    "location": "Dubai"
+  },
+  {
+    "id": "pkg11",
+    "title": "Singapore Family Fun",
+    "description": "Sentosa Island, Universal Studios, and Marina Bay Sands.",
+    "price": 1399,
+    "nights": 5,
+    "location": "Singapore"
+  },
+  {
+    "id": "pkg12",
+    "title": "Thailand Island Hopper",
+    "description": "Explore Phuket, Krabi, and Phi Phi Islands.",
+    "price": 999,
+    "nights": 6,
+    "location": "Thailand"
+  },
+  {
+    "id": "pkg13",
+    "title": "Kashmir Paradise",
+    "description": "Srinagar houseboats, Gulmarg skiing, and Pahalgam views.",
+    "price": 699,
+    "nights": 5,
+    "location": "Kashmir"
+  },
+  {
+    "id": "pkg14",
+    "title": "Andaman Beach Bliss",
+    "description": "Havelock Island, scuba diving, and crystal-clear waters.",
+    "price": 799,
+    "nights": 5,
+    "location": "Andaman"
+  },
+  {
+    "id": "pkg15",
+    "title": "London Classic Tour",
+    "description": "Visit Buckingham Palace, Tower Bridge, and British Museum.",
+    "price": 1899,
+    "nights": 6,
+    "location": "London"
+  }
+]
