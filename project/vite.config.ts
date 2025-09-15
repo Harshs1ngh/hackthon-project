@@ -7,4 +7,6 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  // 👇 IMPORTANT: change "hackthon-project" to your repo name
+  base: '/hackthon-project/',
 });

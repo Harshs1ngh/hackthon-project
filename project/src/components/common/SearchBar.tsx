@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Search, Calendar, Users, MapPin, Mic } from "lucide-react";
 
 interface SearchBarProps {
@@ -15,6 +15,24 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className = "" }) => {
   });
 
   const [listening, setListening] = useState(false);
+  const emmaVoice = useRef<SpeechSynthesisVoice | null>(null);
+
+  // ✅ Preload Emma voice on mount
+  useEffect(() => {
+    const loadVoices = () => {
+      const voices = speechSynthesis.getVoices();
+      const emma = voices.find(
+        (v) =>
+          v.name === "Microsoft Emma Online (Natural) - English (United States)"
+      );
+      if (emma) {
+        emmaVoice.current = emma;
+      }
+    };
+
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }, []);
 
   const handleSearch = () => {
     onSearch(searchData);
@@ -29,98 +47,81 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className = "" }) => {
       return;
     }
 
-    const recognition = new SpeechRecognition();
-    recognition.lang = "en-US";
-    recognition.interimResults = true;
-    recognition.continuous = false;
-
     const questions = [
       { key: "destination", text: "Where do you want to go?" },
-      { key: "startDate", text: "What is your check-in date? Please say like September 15 2025." },
-      { key: "endDate", text: "What is your check-out date? Please say like September 20 2025." },
+      { key: "startDate", text: "Okay! What is your check-in date? Please say like September 15 2025." },
+      { key: "endDate", text: "What is your check-out date?" },
       { key: "travelers", text: "How many travelers?" },
     ];
 
     let currentStep = 0;
+    let answers: any = { ...searchData };
 
     const askQuestion = () => {
+      // cancel any speaking
       speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(questions[currentStep].text);
 
+      const utterance = new SpeechSynthesisUtterance(questions[currentStep].text);
+      if (emmaVoice.current) utterance.voice = emmaVoice.current;
+
+      // when question is finished → start recognition
       utterance.onend = () => {
-        recognition.stop();
-        setTimeout(() => {
-          recognition.start();
-          setListening(true);
-        }, 500);
+        const recognition = new SpeechRecognition();
+        recognition.lang = "en-US";
+        recognition.interimResults = false;
+        recognition.continuous = false;
+
+        recognition.onstart = () => setListening(true);
+
+        recognition.onresult = (event: any) => {
+          let transcript = event.results[0][0].transcript.trim();
+          console.log("🎤 Transcript:", transcript);
+
+          // ✅ Clean transcript: remove trailing punctuation
+          transcript = transcript.replace(/[.,!?]$/g, "").trim();
+
+          let value: any = transcript;
+
+          if (questions[currentStep].key === "destination") {
+            // ✅ Extract last word as destination (e.g., "I want to go Dubai" → "Dubai")
+            const words = transcript.split(" ");
+            value = words[words.length - 1];
+          }
+
+          if (questions[currentStep].key === "travelers") {
+            const num = parseInt(transcript.replace(/\D/g, "")) || 1;
+            value = num;
+          }
+
+          if (questions[currentStep].key === "startDate" || questions[currentStep].key === "endDate") {
+            const parsed = new Date(transcript);
+            if (!isNaN(parsed.getTime())) {
+              value = parsed.toISOString().split("T")[0];
+            }
+          }
+
+          // update state + answers
+          answers[questions[currentStep].key] = value;
+          setSearchData((prev) => ({ ...prev, [questions[currentStep].key]: value }));
+        };
+
+        recognition.onend = () => {
+          setListening(false);
+          currentStep++;
+          if (currentStep < questions.length) {
+            setTimeout(() => askQuestion(), 500); // next Q
+          } else {
+            onSearch(answers); // final trigger
+          }
+        };
+
+        recognition.start();
       };
 
       speechSynthesis.speak(utterance);
     };
 
-    recognition.onresult = (event: any) => {
-      let transcript = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        transcript += event.results[i][0].transcript;
-      }
-
-      // ✅ Remove trailing punctuation like . , ! ?
-      transcript = transcript.trim().replace(/[.,!?]$/, "");
-      console.log("🎤 Transcript:", transcript);
-
-      setSearchData((prev) => {
-        let value: any = transcript;
-
-        // ✅ Special handling
-        if (questions[currentStep].key === "travelers") {
-          const num = parseInt(transcript.replace(/\D/g, "")) || 1;
-          value = num;
-        }
-
-        if (questions[currentStep].key === "startDate" || questions[currentStep].key === "endDate") {
-          try {
-            const parsed = new Date(transcript);
-            if (!isNaN(parsed.getTime())) {
-              // convert → YYYY-MM-DD
-              value = parsed.toISOString().split("T")[0];
-            }
-          } catch (e) {
-            console.warn("Could not parse date:", transcript);
-          }
-        }
-
-        return { ...prev, [questions[currentStep].key]: value };
-      });
-
-      if (event.results[0].isFinal) {
-        recognition.stop();
-        setListening(false);
-
-        currentStep++;
-        if (currentStep < questions.length) {
-          askQuestion();
-        } else {
-          speechSynthesis.cancel();
-          onSearch({ ...searchData });
-        }
-      }
-    };
-
-    recognition.onerror = (event: any) => {
-      console.error("Voice error:", event.error);
-      setListening(false);
-      recognition.stop();
-
-      if (event.error === "no-speech") {
-        alert("I didn’t hear anything. Try again after speaking clearly.");
-      }
-    };
-
-    recognition.onend = () => {
-      setListening(false);
-    };
-
-    askQuestion();
+    askQuestion(); // 🚀 start flow
   };
 
   return (
