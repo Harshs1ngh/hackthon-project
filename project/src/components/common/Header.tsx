@@ -12,10 +12,12 @@ const Header: React.FC<HeaderProps> = ({ currentPage = 'home', onNavigate, user 
 
   const navItems = [
     { id: 'home', label: 'Home' },
+    { id: 'threeDEarth', label: '3D Earth' }, // ✅ fixed id to match App.tsx
     { id: 'packages', label: 'Tour Packages' },
     { id: 'destinations', label: 'Destinations' },
     { id: 'agents', label: 'Travel Agents' },
     { id: 'hotels', label: 'Hotels' },
+    { id: 'natpac', label: 'NATPAC Study' },
     { id: 'contact', label: 'Contact' }
   ];
 
