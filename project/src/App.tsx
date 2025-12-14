@@ -3,8 +3,10 @@ import Header from "./components/common/Header";
 import Footer from "./components/common/Footer";
 import HomePage from "./pages/HomePage";
 import PackagesPage from "./pages/PackagesPage";
+import NatpacPage from './pages/NatpacPage';
 import InquiryForm from "./components/inquiry/InquiryForm";
 import TravelAgentsPage from "./components/Travelagents/TravelAgents";
+import ThreeDEarth from "./pages/EarthPage";
 
 interface User {
   id: string;
@@ -50,6 +52,8 @@ function App() {
             onShowInquiryForm={handleShowInquiryForm}
           />
         );
+      case "threeDEarth":
+        return <ThreeDEarth />;
       case "packages":
         return (
           <PackagesPage
@@ -185,6 +189,8 @@ function App() {
             </div>
           </div>
         );
+      case "natpac":
+        return <NatpacPage onNavigate={handleNavigate} />;
       case "contact":
         return (
           <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-12">
