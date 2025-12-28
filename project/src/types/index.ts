@@ -91,3 +91,81 @@ export interface Testimonial {
   image?: string;
   packageTitle?: string;
 }
+// NATPAC Transportation Data Types
+export interface Trip {
+  id: string;
+  tripNumber: string;
+  userId: string;
+  startTime: Date;
+  endTime?: Date;
+  origin: Location;
+  destination: Location;
+  mode: TransportMode;
+  purpose: TripPurpose;
+  companions: Companion[];
+  legs: TripLeg[];
+  status: 'active' | 'completed' | 'cancelled';
+  createdAt: Date;
+}
+
+export interface Location {
+  id: string;
+  latitude: number;
+  longitude: number;
+  address: string;
+  landmark?: string;
+  detectedAutomatically: boolean;
+}
+
+export interface TripLeg {
+  id: string;
+  sequence: number;
+  startLocation: Location;
+  endLocation: Location;
+  mode: TransportMode;
+  startTime: Date;
+  endTime?: Date;
+  distance?: number;
+  duration?: number;
+}
+
+export interface Companion {
+  id: string;
+  age?: number;
+  gender?: 'male' | 'female' | 'other';
+  relation?: string;
+}
+
+export interface UserConsent {
+  userId: string;
+  consentGiven: boolean;
+  consentDate: Date;
+  dataUsageAgreed: boolean;
+  locationTrackingAgreed: boolean;
+}
+
+export type TransportMode = 
+  | 'walking'
+  | 'bicycle'
+  | 'motorcycle'
+  | 'car'
+  | 'bus'
+  | 'train'
+  | 'metro'
+  | 'auto_rickshaw'
+  | 'taxi'
+  | 'flight'
+  | 'boat'
+  | 'other';
+
+export type TripPurpose = 
+  | 'work'
+  | 'education'
+  | 'shopping'
+  | 'healthcare'
+  | 'entertainment'
+  | 'social'
+  | 'business'
+  | 'tourism'
+  | 'religious'
+  | 'other';
